@@ -1,0 +1,1188 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>富士登山 2026.8.14-15</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700&family=Bebas+Neue&display=swap');
+
+  :root {
+    --fuji: #2D5A8E;
+    --snow: #F0F4F8;
+    --dusk: #C0785A;
+    --night: #1A1F2E;
+    --mist: #8BA7C4;
+    --cloud: #FFFFFF;
+    --text: #2A2A2A;
+    --soft: #6B7B8D;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--snow);
+    color: var(--text);
+    font-family: 'Noto Sans JP', sans-serif;
+    font-weight: 300;
+    line-height: 1.7;
+    min-height: 100vh;
+  }
+
+  /* HERO */
+  .hero {
+    background: linear-gradient(160deg, var(--night) 0%, #1E3A5F 50%, #2D5A8E 100%);
+    color: white;
+    padding: 48px 24px 56px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero::after {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 32px;
+    background: var(--snow);
+    clip-path: ellipse(55% 100% at 50% 100%);
+  }
+
+  .hero-label {
+    font-size: 10px;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: var(--mist);
+    margin-bottom: 12px;
+  }
+
+  .hero-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(52px, 13vw, 88px);
+    letter-spacing: 6px;
+    line-height: 0.9;
+    color: white;
+    margin-bottom: 6px;
+  }
+
+  .hero-sub {
+    font-size: 12px;
+    letter-spacing: 3px;
+    color: var(--mist);
+    margin-bottom: 20px;
+  }
+
+  .hero-date {
+    display: inline-block;
+    background: rgba(255,255,255,0.1);
+    border: 1px solid rgba(255,255,255,0.2);
+    border-radius: 40px;
+    padding: 8px 24px;
+    font-size: 13px;
+    letter-spacing: 2px;
+    color: white;
+    margin-bottom: 14px;
+  }
+
+  .hero-members {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+
+  .member-chip {
+    background: rgba(255,255,255,0.12);
+    border-radius: 20px;
+    padding: 4px 12px;
+    font-size: 12px;
+    color: rgba(255,255,255,0.85);
+    display: flex;
+    align-items: center;
+    gap: 5px;
+  }
+
+  .member-chip .dot {
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: var(--dusk);
+  }
+
+  /* TABS */
+  .tab-nav {
+    background: white;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+    display: flex;
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+
+  .tab-nav::-webkit-scrollbar { display: none; }
+
+  .tab-btn {
+    flex: 1;
+    min-width: 80px;
+    padding: 14px 8px 12px;
+    border: none;
+    background: none;
+    cursor: pointer;
+    font-family: 'Noto Sans JP', sans-serif;
+    font-size: 11px;
+    font-weight: 400;
+    color: var(--soft);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    border-bottom: 2px solid transparent;
+    transition: all 0.2s;
+    white-space: nowrap;
+  }
+
+  .tab-btn .tab-icon { font-size: 18px; }
+
+  .tab-btn.active {
+    color: var(--fuji);
+    border-bottom-color: var(--fuji);
+    font-weight: 700;
+  }
+
+  /* TAB CONTENT */
+  .tab-panel {
+    display: none;
+    padding: 24px 20px 40px;
+    max-width: 680px;
+    margin: 0 auto;
+  }
+
+  .tab-panel.active { display: block; }
+
+  /* SECTION HEADER */
+  .section-eyebrow {
+    font-size: 10px;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: var(--mist);
+    margin-bottom: 4px;
+  }
+
+  .section-title {
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--night);
+    margin-bottom: 18px;
+  }
+
+  /* CARDS */
+  .card {
+    background: white;
+    border-radius: 16px;
+    padding: 18px;
+    margin-bottom: 12px;
+    box-shadow: 0 2px 12px rgba(45,90,142,0.06);
+  }
+
+  .card-title {
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--night);
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  /* BOOKING */
+  .booking-ref {
+    background: linear-gradient(135deg, #E8F0F8 0%, #F0F8FF 100%);
+    border-radius: 14px;
+    padding: 16px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 12px;
+  }
+
+  .ref-label {
+    font-size: 10px;
+    letter-spacing: 2px;
+    color: var(--mist);
+    text-transform: uppercase;
+  }
+
+  .ref-number {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 26px;
+    letter-spacing: 3px;
+    color: var(--fuji);
+  }
+
+  .info-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+  }
+
+  .info-item {
+    background: var(--snow);
+    border-radius: 10px;
+    padding: 12px;
+  }
+
+  .info-label {
+    font-size: 10px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--mist);
+    margin-bottom: 4px;
+  }
+
+  .info-value {
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--night);
+    line-height: 1.4;
+  }
+
+  /* TIMELINE */
+  .timeline { position: relative; }
+
+  .timeline::before {
+    content: '';
+    position: absolute;
+    left: 19px;
+    top: 8px;
+    bottom: 8px;
+    width: 1px;
+    background: linear-gradient(to bottom, var(--fuji), var(--dusk), var(--night));
+  }
+
+  .tl-day-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 14px;
+    padding-left: 48px;
+  }
+
+  .tl-day-badge {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 12px;
+    letter-spacing: 2px;
+    color: var(--fuji);
+    background: #E8F0F8;
+    padding: 2px 10px;
+    border-radius: 4px;
+  }
+
+  .tl-day-label {
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--night);
+  }
+
+  .tl-item {
+    display: flex;
+    gap: 16px;
+    padding-bottom: 18px;
+    position: relative;
+  }
+
+  .tl-dot-wrap {
+    flex-shrink: 0;
+    width: 38px;
+    display: flex;
+    justify-content: center;
+    position: relative;
+    z-index: 1;
+  }
+
+  .tl-dot {
+    width: 11px; height: 11px;
+    border-radius: 50%;
+    background: white;
+    border: 2px solid var(--fuji);
+    margin-top: 5px;
+  }
+
+  .tl-dot.key {
+    width: 15px; height: 15px;
+    background: var(--fuji);
+    border-color: var(--fuji);
+    margin-top: 3px;
+  }
+
+  .tl-dot.summit {
+    background: var(--dusk);
+    border-color: var(--dusk);
+  }
+
+  .tl-time {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 14px;
+    letter-spacing: 1px;
+    color: var(--mist);
+    width: 58px;
+    flex-shrink: 0;
+    padding-top: 3px;
+  }
+
+  .tl-content { flex: 1; }
+
+  .tl-title {
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--night);
+    margin-bottom: 2px;
+  }
+
+  .tl-note {
+    font-size: 11px;
+    color: var(--soft);
+    line-height: 1.5;
+  }
+
+  .tl-tag {
+    display: inline-block;
+    background: #FFF3EE;
+    color: var(--dusk);
+    border-radius: 4px;
+    font-size: 10px;
+    letter-spacing: 0.5px;
+    padding: 1px 7px;
+    margin-top: 4px;
+    font-weight: 500;
+  }
+
+  .tl-day-gap { margin-bottom: 20px; }
+
+  /* PAYMENT */
+  .payment-card {
+    background: linear-gradient(135deg, var(--night) 0%, #2D5A8E 100%);
+    border-radius: 16px;
+    padding: 22px;
+    color: white;
+    margin-bottom: 12px;
+  }
+
+  .payment-label {
+    font-size: 10px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--mist);
+    margin-bottom: 8px;
+  }
+
+  .payment-total {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 46px;
+    letter-spacing: 2px;
+    line-height: 1;
+    margin-bottom: 4px;
+  }
+
+  .payment-sub {
+    font-size: 11px;
+    color: rgba(255,255,255,0.45);
+    margin-bottom: 18px;
+  }
+
+  .payment-breakdown {
+    background: rgba(255,255,255,0.08);
+    border-radius: 10px;
+    overflow: hidden;
+  }
+
+  .pay-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 14px;
+    font-size: 12px;
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+  }
+
+  .pay-row:last-child { border-bottom: none; }
+  .pay-row .label { color: rgba(255,255,255,0.6); }
+  .pay-row .amount { font-weight: 500; }
+
+  .split-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 0;
+    border-bottom: 1px solid var(--snow);
+    font-size: 14px;
+  }
+
+  .split-row:last-child { border-bottom: none; }
+  .split-name { color: var(--night); font-weight: 500; }
+
+  .split-amount {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 22px;
+    letter-spacing: 1px;
+    color: var(--dusk);
+  }
+
+  .split-arrow {
+    font-size: 11px;
+    color: var(--mist);
+    margin-right: 8px;
+  }
+
+  .walica-btn {
+    display: block;
+    text-align: center;
+    background: var(--snow);
+    color: var(--fuji);
+    text-decoration: none;
+    border-radius: 10px;
+    padding: 12px;
+    font-size: 13px;
+    font-weight: 700;
+    margin-top: 14px;
+  }
+
+  /* CHECKLIST */
+  .checklist {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+  }
+
+  .check-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--snow);
+    border-radius: 8px;
+    padding: 9px 10px;
+    font-size: 12px;
+  }
+
+  .check-item .icon { font-size: 14px; flex-shrink: 0; }
+
+  /* LINKS */
+  .link-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    background: var(--snow);
+    border-radius: 10px;
+    padding: 13px;
+    text-decoration: none;
+    color: var(--text);
+    margin-bottom: 8px;
+  }
+
+  .link-item .link-icon { font-size: 20px; }
+
+  .link-title {
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--night);
+  }
+
+  .link-url {
+    font-size: 11px;
+    color: var(--soft);
+    margin-top: 1px;
+  }
+
+  /* NOTICE */
+  .notice {
+    background: #FFF8F5;
+    border-left: 3px solid var(--dusk);
+    border-radius: 0 8px 8px 0;
+    padding: 11px 13px;
+    font-size: 12px;
+    color: var(--soft);
+    margin-top: 10px;
+    line-height: 1.6;
+  }
+
+  .notice strong { color: var(--dusk); }
+
+  /* ALERT BANNER */
+  .alert {
+    background: #FFF3EE;
+    border: 1px solid #F0C4AD;
+    border-radius: 12px;
+    padding: 14px 16px;
+    margin-bottom: 14px;
+    display: flex;
+    gap: 10px;
+    align-items: flex-start;
+  }
+
+  .alert-icon { font-size: 18px; flex-shrink: 0; }
+  .alert-text { font-size: 12px; color: var(--text); line-height: 1.5; }
+  .alert-text strong { color: var(--dusk); display: block; font-size: 13px; margin-bottom: 2px; }
+
+  footer {
+    background: var(--night);
+    color: rgba(255,255,255,0.3);
+    text-align: center;
+    padding: 24px 20px;
+    font-size: 10px;
+    letter-spacing: 2px;
+  }
+
+  /* GEAR PAGE EXTRAS */
+  .gear-section-label {
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--fuji);
+    margin-bottom: 8px;
+    margin-top: 4px;
+  }
+
+  .check-done {
+    font-size: 12px;
+    color: var(--soft);
+    padding: 5px 0;
+    border-bottom: 1px solid var(--snow);
+  }
+
+  .check-done:last-child { border-bottom: none; }
+
+  .check-ng {
+    font-size: 12px;
+    color: #B05050;
+    padding: 5px 0;
+    border-bottom: 1px solid #FFF0EE;
+  }
+
+  .check-ng:last-child { border-bottom: none; }
+
+  /* INTERACTIVE CHECKLIST */
+  .cl-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: var(--snow);
+    border-radius: 8px;
+    padding: 9px 12px;
+    cursor: pointer;
+    transition: background 0.15s;
+    font-size: 13px;
+    color: var(--text);
+    user-select: none;
+  }
+
+  .cl-item:hover { background: #E4ECF5; }
+
+  .cl-item input[type="checkbox"] {
+    width: 18px; height: 18px;
+    accent-color: var(--fuji);
+    flex-shrink: 0;
+    cursor: pointer;
+  }
+
+  .cl-item.checked {
+    background: #EAF3EA;
+    color: #5A9A5A;
+    text-decoration: line-through;
+  }
+
+  @media (max-width: 400px) {
+    .info-grid { grid-template-columns: 1fr; }
+    .checklist { grid-template-columns: 1fr; }
+    .tab-btn { min-width: 70px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-label">Mt. Fuji Climbing Tour 2026</div>
+  <div class="hero-title">FUJI</div>
+  <div class="hero-sub">3,776 m — 吉田口ルート</div>
+  <div class="hero-date">8月14日（金）〜 15日（土）</div>
+  <div style="height:10px"></div>
+  <div class="hero-members">
+    <div class="member-chip"><span class="dot"></span> かなこ</div>
+    <div class="member-chip"><span class="dot"></span> ひろし</div>
+    <div class="member-chip"><span class="dot"></span> れな</div>
+  </div>
+</div>
+
+<!-- TAB NAV -->
+<nav class="tab-nav">
+  <button class="tab-btn active" onclick="switchTab('booking')">
+    <span class="tab-icon">🗂️</span>予約
+  </button>
+  <button class="tab-btn" onclick="switchTab('schedule')">
+    <span class="tab-icon">⛰️</span>行程
+  </button>
+  <button class="tab-btn" onclick="switchTab('cost')">
+    <span class="tab-icon">💴</span>費用
+  </button>
+  <button class="tab-btn" onclick="switchTab('gear')">
+    <span class="tab-icon">🎒</span>持物
+  </button>
+  <button class="tab-btn" onclick="switchTab('links')">
+    <span class="tab-icon">🔗</span>リンク
+  </button>
+</nav>
+
+<!-- TAB: BOOKING -->
+<div id="tab-booking" class="tab-panel active">
+
+  <div style="height:8px"></div>
+  <div class="section-eyebrow">Booking Info</div>
+  <div class="section-title">予約情報</div>
+
+  <div class="alert">
+    <span class="alert-icon">⚠️</span>
+    <div class="alert-text">
+      <strong>入金期限：7月8日（火）23:59</strong>
+      期限までに振込がないと自動キャンセルになります。お早めに！
+    </div>
+  </div>
+
+  <div class="booking-ref">
+    <div>
+      <div class="ref-label">予約番号</div>
+      <div class="ref-number">505-003895</div>
+    </div>
+    <div style="text-align:right">
+      <div class="ref-label">ツアーコード</div>
+      <div style="font-size:12px; color:var(--fuji); font-weight:700; margin-top:4px;">05F-2110-H2</div>
+    </div>
+  </div>
+
+  <div class="info-grid" style="margin-bottom:12px">
+    <div class="info-item">
+      <div class="info-label">往路 集合場所</div>
+      <div class="info-value">横浜駅東口<br><span style="font-size:11px;color:var(--soft)">原鉄道模型博物館前</span></div>
+    </div>
+    <div class="info-item">
+      <div class="info-label">集合時刻</div>
+      <div class="info-value" style="font-family:'Bebas Neue';font-size:30px;letter-spacing:2px;color:var(--dusk);line-height:1.1">05:55<br><span style="font-size:11px;font-family:'Noto Sans JP';color:var(--soft);letter-spacing:0">出発 06:00</span></div>
+    </div>
+    <div class="info-item">
+      <div class="info-label">復路 下車地</div>
+      <div class="info-value">東京駅 八重洲口<br><span style="font-size:11px;color:var(--soft)">17:30〜18:00着予定</span></div>
+    </div>
+    <div class="info-item">
+      <div class="info-label">参加人数</div>
+      <div class="info-value">3名<br><span style="font-size:11px;color:var(--soft)">大人（男1・女2）</span></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">🏔️ ツアー内容</div>
+    <div style="font-size:12px; color:var(--soft); line-height:1.8;">
+      <div>📍 吉田口ルート（5合目スタート）</div>
+      <div>👮 富士山専門ガイド同行（約20名に1名）</div>
+      <div>🛌 八合目 山小屋泊（男女混合相部屋）</div>
+      <div>♨ 帰り：温泉入浴付き（タオル込）</div>
+      <div>🎿 レンタル登山6点セット申込済</div>
+      <div>🍱 海鮮丼ランチ 3名分予約済</div>
+    </div>
+  </div>
+
+  <div class="notice">
+    <strong>📌 現地で別途支払い</strong>：富士登山通行料・入山料 <strong>¥4,000</strong>（各自・現金）
+  </div>
+
+</div>
+
+<!-- TAB: SCHEDULE -->
+<div id="tab-schedule" class="tab-panel">
+
+  <div style="height:8px"></div>
+  <div class="section-eyebrow">Schedule</div>
+  <div class="section-title">2日間の行程</div>
+
+  <div class="timeline">
+
+    <!-- DAY 1 -->
+    <div class="tl-day-header">
+      <div class="tl-day-badge">DAY 1</div>
+      <div class="tl-day-label">8月14日（金）</div>
+    </div>
+
+    <div class="tl-item">
+      <div class="tl-dot-wrap"><div class="tl-dot key"></div></div>
+      <div class="tl-time">05:55</div>
+      <div class="tl-content">
+        <div class="tl-title">横浜駅東口 集合・出発</div>
+        <div class="tl-note">原鉄道模型博物館前。バスは定刻出発、遅れ厳禁！</div>
+        <span class="tl-tag">🚌 バス乗車</span>
+      </div>
+    </div>
+
+    <div class="tl-item">
+      <div class="tl-dot-wrap"><div class="tl-dot"></div></div>
+      <div class="tl-time">09:30頃</div>
+      <div class="tl-content">
+        <div class="tl-title">富士スバルライン口 五合目 到着</div>
+        <div class="tl-note">富士山みはらしで着替え・登山準備。コインロッカーに不要荷物を預けられます。レンタル品もここで受け取り。</div>
+        <span class="tl-tag">🎿 レンタル受取</span>
+      </div>
+    </div>
+
+    <div class="tl-item">
+      <div class="tl-dot-wrap"><div class="tl-dot key"></div></div>
+      <div class="tl-time">10:30頃</div>
+      <div class="tl-content">
+        <div class="tl-title">登山開始 ⛰ 専門ガイドと出発</div>
+        <div class="tl-note">富士吉田口登山道。5合目 → 6合目 → 7合目と進む。</div>
+        <span class="tl-tag">⚡ ガイド同行</span>
+      </div>
+    </div>
+
+    <div class="tl-item">
+      <div class="tl-dot-wrap"><div class="tl-dot"></div></div>
+      <div class="tl-time">16:00頃</div>
+      <div class="tl-content">
+        <div class="tl-title">八合目 山小屋 チェックイン</div>
+        <div class="tl-note">白雲荘・元祖室・富士山ホテルほか（指定不可）。夕食あり。男女混合相部屋、1畳未満もあり。</div>
+        <span class="tl-tag">🛌 山小屋泊</span>
+      </div>
+    </div>
+
+    <div class="tl-item">
+      <div class="tl-dot-wrap"><div class="tl-dot"></div></div>
+      <div class="tl-time">〜20:00</div>
+      <div class="tl-content">
+        <div class="tl-title">夕食・就寝</div>
+        <div class="tl-note">早めに就寝。深夜出発に備えて体力温存！</div>
+      </div>
+    </div>
+
+    <!-- DAY 2 -->
+    <div class="tl-day-gap"></div>
+    <div class="tl-day-header">
+      <div class="tl-day-badge">DAY 2</div>
+      <div class="tl-day-label">8月15日（土）</div>
+    </div>
+
+    <div class="tl-item">
+      <div class="tl-dot-wrap"><div class="tl-dot key"></div></div>
+      <div class="tl-time">01:00頃</div>
+      <div class="tl-content">
+        <div class="tl-title">深夜出発 🌙 山頂へ</div>
+        <div class="tl-note">ガイドと一緒に頂上を目指す。ご来光に間に合うように出発。</div>
+        <span class="tl-tag">🌙 ナイトハイク</span>
+      </div>
+    </div>
+
+    <div class="tl-item">
+      <div class="tl-dot-wrap"><div class="tl-dot key summit"></div></div>
+      <div class="tl-time">04:30頃</div>
+      <div class="tl-content">
+        <div class="tl-title">🌄 山頂到達・ご来光！</div>
+        <div class="tl-note">3,776m。朝食は弁当。登頂者にはガイドから登頂証明書を授与！</div>
+        <span class="tl-tag">🏆 登頂証明書</span>
+      </div>
+    </div>
+
+    <div class="tl-item">
+      <div class="tl-dot-wrap"><div class="tl-dot"></div></div>
+      <div class="tl-time">〜11:00</div>
+      <div class="tl-content">
+        <div class="tl-title">下山 → 五合目 到着</div>
+        <div class="tl-note">11:00までに五合目に戻る必要あり。レンタル品の返却もここ。</div>
+        <span class="tl-tag">⏰ 時間厳守</span>
+      </div>
+    </div>
+
+    <div class="tl-item">
+      <div class="tl-dot-wrap"><div class="tl-dot key"></div></div>
+      <div class="tl-time">11:30</div>
+      <div class="tl-content">
+        <div class="tl-title">五合目 出発（バス）</div>
+        <div class="tl-note">河口湖または山中湖の入浴施設へ。</div>
+      </div>
+    </div>
+
+    <div class="tl-item">
+      <div class="tl-dot-wrap"><div class="tl-dot"></div></div>
+      <div class="tl-time">12:00頃</div>
+      <div class="tl-content">
+        <div class="tl-title">♨ 温泉 &amp; 海鮮丼ランチ</div>
+        <div class="tl-note">「富士山溶岩の湯 泉水」または「山中湖温泉 紅富士の湯」。タオル付。海鮮丼（¥1,580）3名分予約済み。</div>
+        <span class="tl-tag">🍱 ランチ予約済</span>
+      </div>
+    </div>
+
+    <div class="tl-item">
+      <div class="tl-dot-wrap"><div class="tl-dot key"></div></div>
+      <div class="tl-time">17:30〜18:00</div>
+      <div class="tl-content">
+        <div class="tl-title">東京駅 八重洲口 解散 🎉</div>
+        <div class="tl-note">交通状況によって前後します。</div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- TAB: COST -->
+<div id="tab-cost" class="tab-panel">
+
+  <div style="height:8px"></div>
+  <div class="section-eyebrow">Cost Sharing</div>
+  <div class="section-title">費用 &amp; 精算</div>
+
+  <div class="payment-card">
+    <div class="payment-label">合計金額（かなこ立替）</div>
+    <div class="payment-total">¥116,340</div>
+    <div class="payment-sub">ツアー代 ＋ レンタル ＋ 海鮮丼 × 3名</div>
+    <div class="payment-breakdown">
+      <div class="pay-row">
+        <span class="label">基本料金（¥27,300 × 3）</span>
+        <span class="amount">¥81,900</span>
+      </div>
+      <div class="pay-row">
+        <span class="label">レンタル6点セット（¥9,900 × 3）</span>
+        <span class="amount">¥29,700</span>
+      </div>
+      <div class="pay-row">
+        <span class="label">海鮮丼ランチ（¥1,580 × 3）</span>
+        <span class="amount">¥4,740</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="notice" style="margin-bottom:14px">
+    <strong>📌 別途 現地払い（各自）</strong>：入山料 ¥4,000 ／ ソフトクリーム100円割引あり
+  </div>
+
+  <div class="card">
+    <div class="card-title">💸 各自の精算額（ツアー後でOK）</div>
+    <div class="split-row">
+      <span class="split-name">ひろし</span>
+      <span>
+        <span class="split-arrow">→ かなこ</span>
+        <span class="split-amount">¥38,780</span>
+      </span>
+    </div>
+    <div class="split-row">
+      <span class="split-name">れな</span>
+      <span>
+        <span class="split-arrow">→ かなこ</span>
+        <span class="split-amount">¥38,780</span>
+      </span>
+    </div>
+    <a href="https://walica.jp/group/01KWRDYGZ87J96YF39W73NGMB9/detail?from=copyUrl" class="walica-btn">
+      💰 ワリカで詳細を確認する
+    </a>
+  </div>
+
+</div>
+
+<!-- TAB: GEAR -->
+<div id="tab-gear" class="tab-panel">
+
+  <div style="height:8px"></div>
+  <div class="section-eyebrow">Preparation</div>
+  <div class="section-title">持ち物チェック</div>
+
+  <!-- FINAL CHECKLIST -->
+  <div class="card" style="border: 2px solid var(--fuji);">
+    <div class="card-title">☑️ 最終チェックリスト（タップでチェック）</div>
+    <div id="final-checklist" style="display:grid; gap:6px;">
+      <label class="cl-item"><input type="checkbox"><span>レンタルセット一式（現地受取）</span></label>
+      <label class="cl-item"><input type="checkbox"><span>帽子（防水・登山用）</span></label>
+      <label class="cl-item"><input type="checkbox"><span>グローブ</span></label>
+      <label class="cl-item"><input type="checkbox"><span>アームカバー</span></label>
+      <label class="cl-item"><input type="checkbox"><span>防寒着（フリース）</span></label>
+      <label class="cl-item"><input type="checkbox"><span>防寒着（軽量ダウン）</span></label>
+      <label class="cl-item"><input type="checkbox"><span>登山用靴下＋替え1足</span></label>
+      <label class="cl-item"><input type="checkbox"><span>ネックゲイター（バフ）</span></label>
+      <label class="cl-item"><input type="checkbox"><span>サングラス</span></label>
+      <label class="cl-item"><input type="checkbox"><span>水 2L前後</span></label>
+      <label class="cl-item"><input type="checkbox"><span>スポーツドリンク 500ml</span></label>
+      <label class="cl-item"><input type="checkbox"><span>行動食（塩分タブ・ようかん等）</span></label>
+      <label class="cl-item"><input type="checkbox"><span>日焼け止め（SPF50+）</span></label>
+      <label class="cl-item"><input type="checkbox"><span>リップクリーム（UV対応）</span></label>
+      <label class="cl-item"><input type="checkbox"><span>モバイルバッテリー（10,000mAh以上）</span></label>
+      <label class="cl-item"><input type="checkbox"><span>充電ケーブル</span></label>
+      <label class="cl-item"><input type="checkbox"><span>小銭（100円・500円 1,000〜2,000円分）</span></label>
+      <label class="cl-item"><input type="checkbox"><span>保険証 / マイナ保険証</span></label>
+      <label class="cl-item"><input type="checkbox"><span>常備薬・頭痛薬・胃薬</span></label>
+      <label class="cl-item"><input type="checkbox"><span>絆創膏・靴擦れパッド・テーピング</span></label>
+      <label class="cl-item"><input type="checkbox"><span>消毒シート</span></label>
+      <label class="cl-item"><input type="checkbox"><span>ウェットティッシュ・ティッシュ</span></label>
+      <label class="cl-item"><input type="checkbox"><span>タオル（小）</span></label>
+      <label class="cl-item"><input type="checkbox"><span>歯ブラシ</span></label>
+      <label class="cl-item"><input type="checkbox"><span>アイマスク・耳栓</span></label>
+      <label class="cl-item"><input type="checkbox"><span>着替え（下着・靴下）</span></label>
+      <label class="cl-item"><input type="checkbox"><span>カイロ 2〜3枚</span></label>
+      <label class="cl-item"><input type="checkbox"><span>ゴルフボール</span></label>
+      <label class="cl-item"><input type="checkbox"><span>人工涙液（防腐剤なし）・目薬</span></label>
+      <label class="cl-item"><input type="checkbox"><span>ビニール袋・ジップロック</span></label>
+    </div>
+    <div style="margin-top:14px; display:flex; align-items:center; justify-content:space-between;">
+      <div id="cl-progress-text" style="font-size:12px; color:var(--soft);">0 / 30 チェック済</div>
+      <button onclick="resetChecklist()" style="font-size:11px; color:var(--mist); background:none; border:none; cursor:pointer; text-decoration:underline;">リセット</button>
+    </div>
+    <div style="height:6px; background:var(--snow); border-radius:4px; margin-top:6px; overflow:hidden;">
+      <div id="cl-progress-bar" style="height:100%; width:0%; background:var(--fuji); border-radius:4px; transition:width 0.3s;"></div>
+    </div>
+  </div>
+
+  <!-- RENTAL -->
+  <div class="card">
+    <div class="card-title">✅ レンタル済み（現地受取）</div>
+    <div style="display:grid; gap:6px;">
+      <div class="check-done">✅ レインウェア上下</div>
+      <div class="check-done">✅ スパッツ（ゲイター）</div>
+      <div class="check-done">✅ トレッキングシューズ</div>
+      <div class="check-done">✅ ザック（30L）</div>
+      <div class="check-done">✅ ザックカバー</div>
+      <div class="check-done">✅ トレッキングポール</div>
+      <div class="check-done">✅ ヘッドライト</div>
+    </div>
+    <div class="notice">⚠ <strong>サイズ登録がまだの人は早めに！</strong><br><a href="https://tour.vipliner.biz/fuji/rental/fullset/" style="color:var(--fuji)">tour.vipliner.biz/fuji/rental/fullset/</a></div>
+  </div>
+
+  <!-- TOUR PERKS -->
+  <div class="card">
+    <div class="card-title">🎁 ツアー特典（当日受取）</div>
+    <div class="checklist">
+      <div class="check-item"><span class="icon">📖</span> 登山ガイドブック</div>
+      <div class="check-item"><span class="icon">🧤</span> 軍手</div>
+      <div class="check-item"><span class="icon">💧</span> ミネラルウォーター</div>
+      <div class="check-item"><span class="icon">🔔</span> 百歳長寿の鈴</div>
+      <div class="check-item"><span class="icon">🏆</span> 登頂証明書</div>
+      <div class="check-item"><span class="icon">🛁</span> タオル（入浴時）</div>
+    </div>
+  </div>
+
+  <!-- MUST BRING -->
+  <div class="card">
+    <div class="card-title">🚨 必須（忘れないで！）</div>
+
+    <div class="gear-section-label">💧 飲み物</div>
+    <div class="checklist" style="margin-bottom:12px">
+      <div class="check-item"><span class="icon">🫗</span> 水 1.5〜2L</div>
+      <div class="check-item"><span class="icon">🥤</span> スポーツドリンク 500ml</div>
+    </div>
+    <div class="notice" style="margin-bottom:12px">山頂付近で水を買うと500円前後と高額。できるだけ持参を。</div>
+
+    <div class="gear-section-label">🍫 行動食（1時間おきに少しずつ）</div>
+    <div class="checklist" style="margin-bottom:4px">
+      <div class="check-item"><span class="icon">🧂</span> 塩分タブレット</div>
+      <div class="check-item"><span class="icon">🍡</span> ようかん</div>
+      <div class="check-item"><span class="icon">🌱</span> SOYJOY</div>
+      <div class="check-item"><span class="icon">🍪</span> カロリーメイト</div>
+      <div class="check-item"><span class="icon">🍫</span> チョコ</div>
+      <div class="check-item"><span class="icon">🥜</span> ナッツ</div>
+    </div>
+  </div>
+
+  <!-- CLOTHING -->
+  <div class="card">
+    <div class="card-title">🧥 防寒着（レンタルに含まれません）</div>
+    <div class="notice" style="margin-bottom:12px"><strong>山頂は真夏でも0〜5℃、風が吹くと体感氷点下近く。</strong>フリース＋軽量ダウンの両方があると安心です。</div>
+    <div class="checklist" style="margin-bottom:12px">
+      <div class="check-item"><span class="icon">🧶</span> フリース</div>
+      <div class="check-item"><span class="icon">🪶</span> 軽量ダウン</div>
+      <div class="check-item"><span class="icon">🧦</span> 登山用厚手ソックス</div>
+      <div class="check-item"><span class="icon">🧦</span> 替えソックス 1足</div>
+      <div class="check-item"><span class="icon">🧣</span> ネックゲイター（バフ）</div>
+    </div>
+    <div style="font-size:11px; color:var(--soft); background:var(--snow); border-radius:8px; padding:10px;">
+      ネックゲイターは防寒・日焼け・砂埃対策が一枚でできて超優秀。
+    </div>
+  </div>
+
+  <!-- UV / SKIN -->
+  <div class="card">
+    <div class="card-title">☀️ 紫外線対策</div>
+    <div class="checklist">
+      <div class="check-item"><span class="icon">🕶️</span> サングラス（必須レベル）</div>
+      <div class="check-item"><span class="icon">🧴</span> 日焼け止め SPF50+</div>
+      <div class="check-item"><span class="icon">💄</span> リップクリーム UV対応</div>
+    </div>
+  </div>
+
+  <!-- EYE CARE -->
+  <div class="card" style="border-left: 3px solid var(--dusk);">
+    <div class="card-title">👁️ 目のケア（特に注意！）</div>
+    <div style="font-size:12px; color:var(--soft); margin-bottom:10px; line-height:1.6;">
+      標高が高く乾燥と紫外線が強いため、目が乾きやすくなります。
+    </div>
+    <div class="checklist">
+      <div class="check-item"><span class="icon">💧</span> 人工涙液（防腐剤なし）</div>
+      <div class="check-item"><span class="icon">👁️</span> 目薬</div>
+      <div class="check-item"><span class="icon">🕶️</span> 予備のサングラスケース</div>
+    </div>
+  </div>
+
+  <!-- MOUNTAIN HUT -->
+  <div class="card">
+    <div class="card-title">🛌 山小屋で便利なもの</div>
+    <div class="checklist">
+      <div class="check-item"><span class="icon">😴</span> アイマスク</div>
+      <div class="check-item"><span class="icon">🔇</span> 耳栓</div>
+      <div class="check-item"><span class="icon">🪥</span> 歯ブラシ</div>
+      <div class="check-item"><span class="icon">🧻</span> ウェットティッシュ</div>
+      <div class="check-item"><span class="icon">🧻</span> ティッシュ</div>
+      <div class="check-item"><span class="icon">🏃</span> 着替え（下着・靴下）</div>
+    </div>
+  </div>
+
+  <!-- TOILET -->
+  <div class="card">
+    <div class="card-title">🚻 トイレ関連（超重要）</div>
+    <div class="notice" style="margin-bottom:10px"><strong>トイレは現金のみの場合あり。小銭を必ず用意！</strong></div>
+    <div class="checklist">
+      <div class="check-item"><span class="icon">🪙</span> 100円玉 多め</div>
+      <div class="check-item"><span class="icon">🪙</span> 500円玉 多め</div>
+    </div>
+    <div style="font-size:11px; color:var(--soft); margin-top:8px;">目安：小銭 1,000〜2,000円分</div>
+  </div>
+
+  <!-- FIRST AID -->
+  <div class="card">
+    <div class="card-title">🩹 ファーストエイド</div>
+    <div class="checklist">
+      <div class="check-item"><span class="icon">🩹</span> 絆創膏</div>
+      <div class="check-item"><span class="icon">👟</span> 靴擦れパッド（重要）</div>
+      <div class="check-item"><span class="icon">🩻</span> テーピング</div>
+      <div class="check-item"><span class="icon">🧼</span> 消毒シート</div>
+      <div class="check-item"><span class="icon">💊</span> 頭痛薬</div>
+      <div class="check-item"><span class="icon">💊</span> 胃薬</div>
+      <div class="check-item"><span class="icon">💊</span> 常備薬</div>
+      <div class="check-item"><span class="icon">💊</span> 酔い止め（要検討）</div>
+    </div>
+  </div>
+
+  <!-- NICE TO HAVE -->
+  <div class="card">
+    <div class="card-title">💡 あれば快適</div>
+    <div class="checklist">
+      <div class="check-item"><span class="icon">🔥</span> カイロ 2〜3枚</div>
+      <div class="check-item"><span class="icon">🛍️</span> ビニール袋</div>
+      <div class="check-item"><span class="icon">🔒</span> ジップロック</div>
+      <div class="check-item"><span class="icon">👛</span> 折りたたみ財布</div>
+      <div class="check-item"><span class="icon">🪪</span> 保険証 / マイナ保険証</div>
+    </div>
+  </div>
+
+  <!-- NG -->
+  <div class="card" style="background:#FFF8F5;">
+    <div class="card-title">❌ 持っていかなくていいもの</div>
+    <div style="display:grid; gap:6px;">
+      <div class="check-ng">❌ コットンのTシャツ（汗冷えする）</div>
+      <div class="check-ng">❌ ジーンズ（重い・乾かない）</div>
+      <div class="check-ng">❌ 折りたたみ傘（強風で使えない）</div>
+      <div class="check-ng">❌ 重たい一眼レフ（余力があれば）</div>
+    </div>
+  </div>
+
+  <div class="notice">詳しい公式チェックリスト → <a href="https://tour.vipliner.biz/fuji/dl/check-list.pdf" style="color:var(--fuji)">公式PDF</a></div>
+  <div style="height:16px"></div>
+
+</div>
+
+<!-- TAB: LINKS -->
+<div id="tab-links" class="tab-panel">
+
+  <div style="height:8px"></div>
+  <div class="section-eyebrow">Important Links</div>
+  <div class="section-title">重要リンク</div>
+
+  <a href="https://tour.vipliner.biz/reserve-settlement/select.php" class="link-item">
+    <span class="link-icon">🗂️</span>
+    <div>
+      <div class="link-title">マイページ（入金・変更・確認）</div>
+      <div class="link-url">tour.vipliner.biz</div>
+    </div>
+  </a>
+
+  <a href="https://walica.jp/group/01KWRDYGZ87J96YF39W73NGMB9/detail?from=copyUrl" class="link-item">
+    <span class="link-icon">💰</span>
+    <div>
+      <div class="link-title">ワリカ（割り勘詳細）</div>
+      <div class="link-url">walica.jp</div>
+    </div>
+  </a>
+
+  <a href="https://tour.vipliner.biz/fuji/rental/fullset/" class="link-item">
+    <span class="link-icon">🎿</span>
+    <div>
+      <div class="link-title">レンタルサイズ登録</div>
+      <div class="link-url">tour.vipliner.biz</div>
+    </div>
+  </a>
+
+  <a href="https://tour.vipliner.biz/map/fujitozan/?check=yokohama" class="link-item">
+    <span class="link-icon">📍</span>
+    <div>
+      <div class="link-title">横浜 集合場所マップ</div>
+      <div class="link-url">tour.vipliner.biz</div>
+    </div>
+  </a>
+
+  <a href="https://tour.vipliner.biz/fuji/dl/check-list.pdf" class="link-item">
+    <span class="link-icon">📋</span>
+    <div>
+      <div class="link-title">持ち物チェックリスト PDF</div>
+      <div class="link-url">tour.vipliner.biz</div>
+    </div>
+  </a>
+
+  <a href="https://tour.vipliner.biz/reserve/?tourcode=05F-2110-H2" class="link-item">
+    <span class="link-icon">🏔️</span>
+    <div>
+      <div class="link-title">ツアー詳細ページ</div>
+      <div class="link-url">tour.vipliner.biz</div>
+    </div>
+  </a>
+
+</div>
+
+<footer>
+  FUJI CLIMBING 2026 · 8.14–15 · かなこ / ひろし / れな
+</footer>
+
+<script>
+  function switchTab(id) {
+    document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    document.getElementById('tab-' + id).classList.add('active');
+    event.currentTarget.classList.add('active');
+  }
+
+  function updateProgress() {
+    const items = document.querySelectorAll('#final-checklist .cl-item');
+    const checked = document.querySelectorAll('#final-checklist .cl-item.checked').length;
+    const total = items.length;
+    document.getElementById('cl-progress-text').textContent = checked + ' / ' + total + ' チェック済';
+    document.getElementById('cl-progress-bar').style.width = (checked / total * 100) + '%';
+  }
+
+  function resetChecklist() {
+    document.querySelectorAll('#final-checklist .cl-item').forEach(item => {
+      item.classList.remove('checked');
+      item.querySelector('input').checked = false;
+    });
+    updateProgress();
+  }
+
+  document.addEventListener('DOMContentLoaded', () => {
+    document.querySelectorAll('#final-checklist .cl-item').forEach(item => {
+      const cb = item.querySelector('input');
+      cb.addEventListener('change', () => {
+        item.classList.toggle('checked', cb.checked);
+        updateProgress();
+      });
+    });
+    updateProgress();
+  });
+</script>
+
+</body>
+</html>
